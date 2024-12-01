@@ -3,10 +3,9 @@ import styled from "styled-components";
 
 export const StyledLink = styled(Link)`
     text-decoration: none;
-    color: #000000;
+    color: ${props => props.theme.colors.black};
     align-self: center;
     &:hover {
         cursor: pointer;
-        color: #F082AC;
     }
 `

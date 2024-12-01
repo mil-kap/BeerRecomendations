@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledError = styled.span`
-    color: red;
+    color: ${props => props.theme.colors.error};
     position: static;
     left: 1rem;
 `

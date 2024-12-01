@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { IBeer } from '../models/products';
+import axios from "axios";
+import { IBeer } from "../models/products";
 
 const httpService = axios.create();
 

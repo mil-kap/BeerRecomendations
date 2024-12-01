@@ -3,19 +3,26 @@ import styled from "styled-components";
 import { Link } from "../../atoms/link/Link";
 
 export const StyledHeader = styled.div`
+    position: sticky;
+    top: 0;
+    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 3rem;
-    font-size: 1.2rem;
-    font-weight: 700;
+    box-shadow: ${props => props.theme.shadow.small};
+    font-size: ${props => props.theme.typography.fontSize.large};
+    font-weight: ${props => props.theme.typography.fontWeight.bold};
     height: 60px;
-    background-color: #00d5d1;
+    background-color: ${props => props.theme.colors.backgroundLight};
+    color: ${props => props.theme.colors.black}
 `;
 
 export const StyledNavLink = styled(Link)<{ $active?: boolean; }>`
     margin-right: 1rem;
-    color: ${props => props.$active ? "#F082AC" : "#000000"}
+    text-transform: uppercase;
+    font-size: ${props => props.theme.typography.fontSize.base};
+    color: ${props => props.$active ? props.theme.colors.primary : props.theme.colors.black}
 `
 
 export const StyledNav = styled.div`

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
 export const StyledCreateBeer = styled.div`
-    padding: 3rem;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
 `;

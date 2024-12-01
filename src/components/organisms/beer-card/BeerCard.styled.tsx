@@ -1,19 +1,21 @@
 import styled from "styled-components";
 
 export const StyledBeerCard = styled.div`
-    border: 2px solid #909090;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    background-color: ${props => props.theme.colors.white};
+    overflow: hidden;
+    box-shadow: ${props => props.theme.shadow.medium};
+    text-align: center;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 
     &:hover {
-        cursor: pointer;
-        background-color: #f5ebeb;
+        transform: translateY(-10px);
     }
 `
 
 export const StyledContainer = styled.div`
     display: flex;
-    height: 100%;
+    flex-direction: column;
+    align-items: center;
 `

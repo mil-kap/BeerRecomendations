@@ -25,7 +25,7 @@ export const useScroll = (fetchMore: () => IBeer[]): any => {
     window.addEventListener("scroll", debounce(handleScroll, 500));
 
     useEffect(() => {
-        if (loading === true) {
+        if (loading) {
           setPage((prevPage) => prevPage + 1);
         }
     }, [loading]);
