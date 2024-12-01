@@ -4,7 +4,7 @@ import { Header } from "../organisms/header/Header"
 export const Layout = () => {
     return (
         <div>
-            <Header></Header>
+            <Header />
             <Outlet />
         </div>
     )

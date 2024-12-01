@@ -19,7 +19,7 @@ export const Header = React.memo(() => {
     return view === Views.user ? (
                 <StyledHeader>
                     <StyledNavLink to="/" title="Home" className="left"></StyledNavLink>
-                    <h2>Buy beautiful beers with us!</h2>
+                    <h3>Craft Beer Emporium</h3>
                     <StyledNavLink to="/mng-list" title="Manager View" className="right"></StyledNavLink>
                 </StyledHeader>
             )
