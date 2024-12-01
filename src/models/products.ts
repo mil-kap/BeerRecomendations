@@ -10,3 +10,9 @@ export interface IRating {
     average: number;
     reviews: number;
 }
+
+export interface IFormInputs {
+    name: string;
+    price: string;
+    image: string;
+}

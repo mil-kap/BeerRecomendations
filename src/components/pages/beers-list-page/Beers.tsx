@@ -1,32 +1,32 @@
-import { useCallback, useEffect } from "react";
-import { BeersService } from "../../../services/BeersService"
 import { IBeer } from "../../../models/products";
-import React from "react";
+import React, { useEffect } from "react";
 import { BeerCard } from "../../organisms/beer-card/BeerCard";
 import { StyledBeers } from "./Beers.styled";
 import useBeerStore from "../../../store/useBeerStore";
 import { useShallow } from 'zustand/react/shallow'
+import { useScroll } from "../../../common/utils/useScroll";
 
+export const SIZE = 10;
 
 export const Beers = React.memo(() => {
-    const {beers, setBeers} = useBeerStore(useShallow(((state) => ({beers: state.beers, setBeers: state.setBeers}))));
+    const {allBeers} = useBeerStore(useShallow(((state) => ({allBeers: state.beers}))));
 
-    const getBeers = useCallback(() => {
-        BeersService.getBeers()
-            .then((response) => {
-                setBeers(response);
-            });
-        }, [setBeers]);
+    const fetchMoreBeer = () => {
+        return allBeers.filter((_, index) => (index >= beers.length && index < (page) * SIZE));
+    }
+
+    const [beers, page, loading, fetchBeers] = useScroll(fetchMoreBeer);
 
     useEffect(() => {
-        getBeers();
-    }, [getBeers]);  
+        fetchBeers();
+     }, [allBeers])
 
     return (
         <StyledBeers>
             {beers?.map((beer: IBeer) => {
                 return (<BeerCard beer={beer} key={beer.id}></BeerCard>)
             })}
+            {loading && <p>loading</p>}
         </StyledBeers>
     )
 });

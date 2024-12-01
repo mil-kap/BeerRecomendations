@@ -7,13 +7,12 @@ interface ICardDescriptionProps {
 }
 
 export const CardDescription: React.FC<ICardDescriptionProps> = ({beer}) => {
-
     return (
         <StyledDescription>
             <StyledDescriptionTitle>{beer.name}</StyledDescriptionTitle>
             <StyledDescriptionItem>Price: {beer.price}</StyledDescriptionItem>
-            <StyledDescriptionItem>Rating: {beer.rating.average.toFixed(2)}</StyledDescriptionItem>
-            <StyledDescriptionItem>Reviews: {beer.rating.reviews}</StyledDescriptionItem>
+            <StyledDescriptionItem>Rating: {beer.rating?.average.toFixed(2)}</StyledDescriptionItem>
+            <StyledDescriptionItem>Reviews: {beer.rating?.reviews}</StyledDescriptionItem>
         </StyledDescription>
     )
 }

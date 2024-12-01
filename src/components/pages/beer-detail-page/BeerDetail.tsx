@@ -31,7 +31,7 @@ export const BeerDetail = React.memo(() => {
         <StyledBeerDetail>
             <Image imageUrl={beer.image} title={beer.name}></Image>
             <div><CardDescription beer={beer}></CardDescription>
-            <Button label="Buy" onClick={buy}></Button></div>
+            <Button label="Buy" onClick={buy} position="left"></Button></div>
         </StyledBeerDetail>
     ) : <h2>Not found</h2>
 });

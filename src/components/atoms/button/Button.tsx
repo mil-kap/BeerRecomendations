@@ -2,16 +2,21 @@ import { StyledButton } from "./Button.styled";
 
 interface IButtonProps {
     label: string;
-    onClick: () => void;
+    onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+    type?: "button" | "submit";
+    position?: "left" | "right";
 }
 
-export const Button: React.FC<IButtonProps> = ({label, onClick}) => {
+export const Button: React.FC<IButtonProps> = ({label, onClick, type="button", position="right"}) => {
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         event.stopPropagation();
-        onClick();
+        
+        if (onClick) {
+            onClick(event);
+        }
     }
     return (
-        <StyledButton onClick={handleClick}>{label}</StyledButton>
+        <StyledButton onClick={handleClick} type={type} $position={position}>{label}</StyledButton>
     )
 }

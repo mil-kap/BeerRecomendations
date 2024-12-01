@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { IBeer } from "../../../models/products";
 import { Button } from "../../atoms/button/Button";
 import { Image } from "../../atoms/image/Image";
@@ -10,8 +10,13 @@ interface IBeerCardProps {
 }
 export const BeerCard: React.FC<IBeerCardProps> = ({beer}) => {
     const navigate = useNavigate();
+    let location = useLocation();
     
     const goToDetails = () => {
+        if (location.pathname.includes('mng')){
+            navigate(`/mng-beer/${beer.id}`);
+            return;
+        }
         navigate(`/beer/${beer.id}`)
     }
 
