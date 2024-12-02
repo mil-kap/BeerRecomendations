@@ -2,20 +2,28 @@ import {create} from "zustand";
 import { IBeer } from "../models/products";
 
 const beerStore = (set: any, get: any) => ({
-    beers: [],
-    topBeers: [],
-    setBeers: (newBeers: IBeer[]) => {
-        set({ beers: newBeers })
+    allBeers: [],
+    loading: false,
+    setAllBeers: (newBeers: IBeer[]) => {
+        set({ allBeers: newBeers })
+    },
+    getNextPage: (page: number, size: number) => {
+        return get().allBeers.slice((page-1) * size, page * size);
     },
     getBeer: (id: number) => {
-        return get().beers.find((beer: IBeer) => beer.id === id);
+        return get().allBeers.find((beer: IBeer) => beer.id === id);
     },
     getTopTen: () => {
-        const topTen = get().beers.sort((a: IBeer, b: IBeer) => b.rating.average - a.rating.average).slice(0, 10);
-        set({ topBeers: topTen });
+        return get().allBeers.sort((a: IBeer, b: IBeer) => b.rating.average - a.rating.average).slice(0, 10);
     },
     addBeer: (newBeer: IBeer) => {
-        set({ beers: [...get().beers, newBeer]})
+        set({ allBeers: [...get().allBeers, newBeer]})
+    },
+    setLoading: (loading: boolean) => {
+        set({ loading })
+    },
+    getLoading: () => {
+        return get().loading;
     }
 })
 

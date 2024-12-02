@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { StyledButton } from "./Button.styled";
 
 interface IButtonProps {
@@ -7,8 +8,7 @@ interface IButtonProps {
     position?: "left" | "right";
 }
 
-export const Button: React.FC<IButtonProps> = ({label, onClick, type="button", position="right"}) => {
-
+export const Button: React.FC<IButtonProps> = memo(({label, onClick, type="button", position="right"}) => {
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         event.stopPropagation();
         
@@ -16,7 +16,8 @@ export const Button: React.FC<IButtonProps> = ({label, onClick, type="button", p
             onClick(event);
         }
     }
+
     return (
         <StyledButton onClick={handleClick} type={type} $position={position}>{label}</StyledButton>
     )
-}
+});

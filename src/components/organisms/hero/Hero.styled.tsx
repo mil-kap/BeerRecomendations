@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-export const StyledHero = styled.div<{ image: string; }>`
+export const StyledHero = styled.div<{ $image: string; }>`
   position: relative;
   height: 50vh;
-  background-image: url('${props => props.image}');
+  background-image: url('${props => props.$image}');
   background-size: cover;
   background-position: center;
   display: flex;

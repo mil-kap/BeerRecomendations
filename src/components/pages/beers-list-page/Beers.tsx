@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IBeer } from "../../../models/products";
 import { BeerCard } from "../../organisms/beer-card/BeerCard";
 import useBeerStore from "../../../store/useBeerStore";
@@ -7,21 +7,42 @@ import { useScroll } from "../../../common/utils/useScroll";
 import heroImage from "../../../assets/images/craft-beer.jpg";
 import { Hero } from "../../organisms/hero/Hero";
 import { StyledBeers } from "./Beers.styled";
+import { Spinner } from "../../atoms/spinner/Spinner";
+import { BeersService } from "../../../services/BeersService";
 
 export const SIZE = 10;
 
-export const Beers = React.memo(() => {
-    const {allBeers} = useBeerStore(useShallow(((state) => ({allBeers: state.beers}))));
+export const Beers = () => {
+    const [beers, setBeers] = useState<IBeer[]>([]);
+    const [page, loading, setLoading] = useScroll();
 
-    const fetchMoreBeer = () => {
-        return allBeers.filter((_, index) => (index >= beers.length && index < (page) * SIZE));
+    const {setAllBeers, fetchedAllBeers, getNextPage} = useBeerStore(useShallow(((state) => ({
+        ...state,
+        fetchedAllBeers: state.allBeers.length,
+    }))));
+
+    const updateNextBatch = () => {
+        setBeers([...beers, ...getNextPage(page, SIZE)]);
+        setLoading(false);
     }
 
-    const [beers, page, loading, fetchBeers] = useScroll(fetchMoreBeer);
+    const getAllBeers = useCallback(() => {
+        BeersService.getBeers()
+            .then((response) => {
+              setAllBeers(response);
+              updateNextBatch();
+            });
+    }, [setAllBeers])
 
     useEffect(() => {
-        fetchBeers();
-     }, [allBeers])
+        if (!fetchedAllBeers){
+            getAllBeers();
+        }
+    }, [getAllBeers]);  
+
+    useEffect(() => {
+        updateNextBatch();
+    }, [page])
 
     return (
         <>
@@ -30,8 +51,10 @@ export const Beers = React.memo(() => {
                 {beers?.map((beer: IBeer) => {
                     return (<BeerCard beer={beer} key={beer.id}></BeerCard>)
                 })}
-                {loading && <p>loading</p>}
+                {loading && <Spinner />}
             </StyledBeers>
         </>
     )
-});
+};
+
+export default Beers;
