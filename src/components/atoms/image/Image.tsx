@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { StyledContainer, StyledImage } from "./Image.styled";
 
 interface IImageProps {
@@ -5,11 +6,11 @@ interface IImageProps {
     title: string;
 }
 
-export const Image: React.FC<IImageProps> = ({imageUrl, title}) => {
+export const Image: React.FC<IImageProps> = memo(({imageUrl, title}) => {
 
     return (
         <StyledContainer>
             <StyledImage src={imageUrl} alt={title}></StyledImage>
         </StyledContainer>
     )
-}
+});

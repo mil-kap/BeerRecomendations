@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { StyledHero, StyledHeader } from "./Hero.styled";
 
 interface IHeroProps {
@@ -5,11 +6,11 @@ interface IHeroProps {
     title: string;
 }
 
-export const Hero: React.FC<IHeroProps> = ({imageUrl, title}) => {
+export const Hero: React.FC<IHeroProps> = memo(({imageUrl, title}) => {
 
     return (
-        <StyledHero image={imageUrl}>
+        <StyledHero $image={imageUrl}>
             <StyledHeader>{title}</StyledHeader>
         </StyledHero>
     )
-}
+});

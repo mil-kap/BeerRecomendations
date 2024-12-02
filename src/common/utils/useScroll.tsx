@@ -1,20 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { debounce } from "./debounce";
-import { IBeer } from "../../models/products";
-import { SIZE } from "../../components/pages/beers-list-page/Beers";
 
-export const useScroll = (fetchMore: () => IBeer[]): any => {
-    const [data, setData] = useState<IBeer[]>([]);
+export const useScroll = (): any => {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
-
-    const fetchBeers = useCallback(() => {
-        if (data.length < page * SIZE) {
-            const newData = fetchMore();
-            setData((prevData) => [...prevData, ...newData]);
-            setLoading(false);
-        }
-    }, [data.length, fetchMore, page]);
 
     const handleScroll = () => {
         if (document.body.scrollHeight - 300 < window.scrollY + window.innerHeight) {
@@ -30,15 +19,9 @@ export const useScroll = (fetchMore: () => IBeer[]): any => {
         }
     }, [loading]);
 
-    
-    useEffect(() => {
-        fetchBeers();
-     }, [page])
-
     return [
-        data,
         page,
         loading,
-        fetchBeers
+        setLoading
     ]
 }

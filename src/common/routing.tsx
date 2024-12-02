@@ -1,24 +1,31 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
-import { Beers } from "../components/pages/beers-list-page/Beers"
-import { BeerDetail } from "../components/pages/beer-detail-page/BeerDetail"
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import { Layout } from "../components/templates/Layout"
-import { ManageBeers } from "../components/pages/manager-list-page/ManageBeers"
-import { Trends } from "../components/pages/trends-page/Trends"
-import { CreateBeer } from "../components/pages/create-beer-page/CreateBeer"
+import { lazy, Suspense } from "react"
+import { Spinner } from "../components/atoms/spinner/Spinner"
+
+const Beers = lazy(() => import("../components/pages/beers-list-page/Beers"));
+const BeerDetail = lazy(() => import("../components/pages/beer-detail-page/BeerDetail"));
+const Trends = lazy(() => import("../components/pages/trends-page/Trends"));
+const CreateBeer = lazy(() => import("../components/pages/create-beer-page/CreateBeer"));
 
 export const Routing = () => {
     return (
         <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Layout />}> 
-                    <Route path="" element={<Beers />}/> 
-                    <Route path="beer/:id" element={<BeerDetail />}/> 
-                    <Route path="mng-list" element={<ManageBeers />} />
-                    <Route path="mng-trends" element={<Trends />} />
-                    <Route path="mng-create" element={<CreateBeer />} />
-                    <Route path="mng-beer/:id" element={<BeerDetail />} />
-                </Route>
-           </Routes>
+            <Suspense fallback={<Spinner />}>
+                <Routes>
+                    <Route path="/" element={<Navigate to="/beer" />} />
+                    <Route path="/beer" element={<Layout />}> 
+                        <Route path="" element={<Beers />} /> 
+                        <Route path=":id" element={<BeerDetail />}/> 
+                    </Route>
+                    <Route path="/mng" element={<Layout />}>
+                        <Route path="" element={<Beers />} />
+                        <Route path="trends" element={<Trends />} />
+                        <Route path="create" element={<CreateBeer />} />
+                        <Route path="beer/:id" element={<BeerDetail />} />
+                    </Route>
+            </Routes>
+           </Suspense>
         </BrowserRouter>
     )
 }

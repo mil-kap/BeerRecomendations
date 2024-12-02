@@ -28,3 +28,5 @@ export const CreateBeer = () => {
         </StyledCreateBeer>
     )
 }
+
+export default CreateBeer;

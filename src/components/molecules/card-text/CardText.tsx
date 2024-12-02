@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { IBeer } from "../../../models/products";
 import { StyledDescription, StyledDescriptionItem, StyledDescriptionTitle } from "./CardText.styled";
 
@@ -6,7 +7,7 @@ interface ICardDescriptionProps {
     beer: IBeer;
 }
 
-export const CardDescription: React.FC<ICardDescriptionProps> = ({beer}) => {
+export const CardDescription: React.FC<ICardDescriptionProps> = memo(({beer}) => {
     return (
         <StyledDescription>
             <StyledDescriptionTitle>{beer.name}</StyledDescriptionTitle>
@@ -15,4 +16,4 @@ export const CardDescription: React.FC<ICardDescriptionProps> = ({beer}) => {
             <StyledDescriptionItem>Reviews: {beer.rating?.reviews}</StyledDescriptionItem>
         </StyledDescription>
     )
-}
+});

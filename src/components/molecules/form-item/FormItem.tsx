@@ -4,6 +4,7 @@ import { StyledFormItem } from "./FormItem.styled"
 import { Label } from "../../atoms/label/Label"
 import { Input } from "../../atoms/input/input"
 import { IFormInputs } from "../../../models/products"
+import { memo } from "react"
 
 interface IFormItemProps {
     name: keyof IFormInputs,
@@ -11,7 +12,7 @@ interface IFormItemProps {
     error?: FieldError
 }
 
-export const FormItem: React.FC<IFormItemProps> = ({name, register, error}) => {
+export const FormItem: React.FC<IFormItemProps> = memo(({name, register, error}) => {
     return (
         <StyledFormItem>
             <Label name={name} />
@@ -19,4 +20,4 @@ export const FormItem: React.FC<IFormItemProps> = ({name, register, error}) => {
             {error && <Error error="This field is required" />}
         </StyledFormItem>
     )
-}
+});
