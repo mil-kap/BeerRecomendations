@@ -1,13 +1,10 @@
-import { useShallow } from "zustand/react/shallow";
 import { IBeer, IFormInputs } from "../../../models/products";
-import useBeerStore from "../../../store/useBeerStore";
 import { CreateForm } from "../../organisms/create-form/CreateForm";
 import { StyledCreateBeer } from "./CreateBeer.styled";
+import { useBeersService } from "../../../services/useBeersService";
 
 export const CreateBeer = () => {
-    const {addBeer} = useBeerStore(useShallow(((state) => ({
-        addBeer: state.addBeer
-    }))));
+    const {createBeer} = useBeersService();
     
     const handleCreateBeer = (data: IFormInputs) => {
         const newBeer: IBeer = {
@@ -18,7 +15,7 @@ export const CreateBeer = () => {
                 reviews: 0
             }
         };
-        addBeer(newBeer);
+        createBeer(newBeer);
         alert("New beer created!");
     };
 

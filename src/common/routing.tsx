@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Navigate, Route, Routes } from "react-router"
 import { Layout } from "../components/templates/Layout"
 import { lazy, Suspense } from "react"
 import { Spinner } from "../components/atoms/spinner/Spinner"
