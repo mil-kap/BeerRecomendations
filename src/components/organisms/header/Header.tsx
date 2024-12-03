@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { StyledHeader, StyledNav, StyledNavLink } from "./Header.styled";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 enum Views {
     'user',
@@ -25,9 +25,9 @@ export const Header = () => {
             (
                 <StyledHeader>
                     <StyledNav>
-                        <StyledNavLink to="/mng" title="All beers" className="left" $active={location.pathname.includes('mng-list')}></StyledNavLink>
-                        <StyledNavLink to="/mng/create" title="Add beers" className="left" $active={location.pathname.includes('mng-create')}></StyledNavLink>
-                        <StyledNavLink to="/mng/trends" title="Trends" className="left" $active={location.pathname.includes('mng-trends')}></StyledNavLink>
+                        <StyledNavLink to="/mng" title="All beers" className="left" $active={location.pathname === '/mng'}></StyledNavLink>
+                        <StyledNavLink to="/mng/create" title="Add beers" className="left" $active={location.pathname.includes('create')}></StyledNavLink>
+                        <StyledNavLink to="/mng/trends" title="Trends" className="left" $active={location.pathname.includes('trends')}></StyledNavLink>
                     </StyledNav>
                     <StyledNavLink to="/" title="User View" className="right"></StyledNavLink>
                 </StyledHeader>

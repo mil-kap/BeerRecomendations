@@ -1,10 +1,10 @@
-import { useLocation, useNavigate } from "react-router-dom";
 import { IBeer } from "../../../models/products";
 import { Button } from "../../atoms/button/Button";
 import { Image } from "../../atoms/image/Image";
 import { CardDescription } from "../../molecules/card-text/CardText";
 import { StyledBeerCard, StyledContainer } from "./BeerCard.styled";
 import { memo, useCallback } from "react";
+import { useLocation, useNavigate } from "react-router";
 
 interface IBeerCardProps {
     beer: IBeer;

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import styled from "styled-components";
 
 export const StyledLink = styled(Link)`
@@ -7,5 +7,6 @@ export const StyledLink = styled(Link)`
     align-self: center;
     &:hover {
         cursor: pointer;
+        color: ${props => props.theme.colors.primary};
     }
 `

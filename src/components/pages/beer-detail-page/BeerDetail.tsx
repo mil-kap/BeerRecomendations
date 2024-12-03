@@ -1,32 +1,25 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { StyledBeerDetail } from "./BeerDetail.styled";
-import { useParams } from "react-router-dom";
-import useBeerStore from "../../../store/useBeerStore";
-import { useShallow } from "zustand/react/shallow";
-import { IBeer } from "../../../models/products";
+import { useParams } from "react-router";
 import { Image } from "../../atoms/image/Image";
 import { CardDescription } from "../../molecules/card-text/CardText";
 import { Button } from "../../atoms/button/Button";
 import { Spinner } from "../../atoms/spinner/Spinner";
+import { useBeersService } from "../../../services/useBeersService";
 
 
 export const BeerDetail = () => {
-    const [beer, setBeer] = useState<IBeer>();
     const {id} = useParams();
-    const {getBeer, loading} = useBeerStore(useShallow(((state) => ({
-        ...state,
-    }))));
+    const { getBeerById, loading, beer } = useBeersService();
+  
+    useEffect(() => {
+        if (!id) return;
+        getBeerById(+id);
+    }, [id, getBeerById])
 
     const buy = useCallback(() => {
         alert(`You have bought 1 bottle of ${beer?.name}!`)
-    }, [beer])
-
-    useEffect(() => {
-        if (!id || loading) return;
-
-        const beer = getBeer(+id);
-        setBeer(beer);
-    }, [id, getBeer, loading]);
+    }, [beer]);
 
     return loading ? 
         (<Spinner/>)

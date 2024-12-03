@@ -1,22 +1,26 @@
-import { useMemo } from "react"
+import { useEffect, useState } from "react"
 import { Bar, CartesianGrid, Legend, Tooltip, XAxis, YAxis } from "recharts"
-import useBeerStore from "../../../store/useBeerStore";
-import { useShallow } from "zustand/react/shallow";
 import { StyledBarChart, StyledTrends } from "./Trends.styled";
 import { theme } from "../../../styles/theme";
+import { useBeersService } from "../../../services/useBeersService";
+import { Spinner } from "../../atoms/spinner/Spinner";
+import { IBeer } from "../../../models/products";
 
 
-export const Trends = () => {
-    const {getTopTen, allBeersFetched} = useBeerStore(useShallow(((state) => ({
-        getTopTen: state.getTopTen,
-        allBeersFetched: state.allBeers.length
-    }))));
+export const Trends = () => {     
+    const { getTopTenBeers, loading } = useBeersService();
+    const [ beers, setBeers ] = useState<IBeer[]>([]);
 
-    const beers = useMemo(() => {
-        return allBeersFetched ? getTopTen() : [];
-    }, [getTopTen, allBeersFetched]);
+    useEffect(() => {
+        getTopTenBeers().then((beers) => {
+            setBeers(beers)
+        });
+    }, [])
 
-    return (
+    return loading ? (
+        <Spinner />
+    ) :
+    (
         <StyledTrends>
             <h3>Top 10 rated beers: </h3>
             <StyledBarChart width={730} height={250} data={beers}>
@@ -40,6 +44,7 @@ export const Trends = () => {
 
         </StyledTrends>
     )
+
 }
 
 export default Trends;
